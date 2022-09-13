@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/recipe_style.css') }}">
+    <title>New_Recipe</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes"> 
+            {% for message in messages %}
+                <li>{{message}}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <div class="navbar">
+        <a href="/to-recipes">Back to Recipes</a>
+        <form  action="/logout", method="post" id='logout'>
+            <label for="logout"><input type="submit"  value="Logout"></label>
+        </form>
+    </div>
+    <div class="recipe">
+        <form action="/create_recipe" method="post">
+        <h1>Add A New Recipe!</h1>
+        {# dont enter session or user id to avoid malicious user activity #}
+        {# <label for="id" name="id"><input type="hidden" name="id"></label> #}
+        <label for="name">Recipe Name: <input type="text" name="r_name"></label>
+        <label for="description">Description: <input name="description" id="descript" ></label>
+        <label for="instructions">Instructions: <textarea name="instructions" id="instr" cols="60" rows="10" overflow="scroll"></textarea></label>
+        <label for="date">Date Cooked / Made<input type="date" name="date_cooked_made" min="1930-01-01" max="3000-12-31"></label>
+        <label for="under_30">Under 30 minutes?<input type="radio" name="half_hour" value="Yes" id="checker">Yes<input type="radio" name="half_hour" value="No" id="checker">No</label>
+        <input type="submit" value="Submit" class="submit">
+        </form>
+        
+    </div>
+    <div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='/css/style.css') }}">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div>
+        <h1>Hello  {{current_user.first_name}}</h1>
+        <p>All the tasty things!</p>
+        {# an a tag or a form with post method works here #}
+        <a href="/create_link">Create!</a>
+        {# logout returns to reg page #}
+        <a href="/logout">Logout</a>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <td>Name</td>
+                <td>Under</td>
+                <td>Posted By</td>
+                <td>Actions</td>
+            </tr>
+            {% for one_recipe in all_the_recipes %}
+            <tr>
+                <td>{{one_recipe.r_name}}</td>
+                <td>{{one_recipe.half_hour}}</td>
+                {# call the recipe, add the maker, call the name of the maker. after you call the maker you have access to any of the words in the constructor of the maker #}
+                <td>{{one_recipe.maker.first_name}}</td>
+                <td>
+                    {#another for loop here for recipes to load on the page #}
+                    <a href="/view_recipe/{{one_recipe.id}}">View Recipe</a>
+                    <a href="/edit">Edit Recipe</a>
+                    <form action="/destroy", method = "post" id="delete_form">
+                        <label  for="delete"><input type="submit" name="delete" value="Delete Recipe"></label>
+                    </form>
+                </td> 
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
